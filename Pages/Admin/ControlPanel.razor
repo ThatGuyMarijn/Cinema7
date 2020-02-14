@@ -1,0 +1,12 @@
+﻿@page "/controlpanel"
+
+@attribute [Authorize(Roles = "Admin, LevelFive")]
+
+<h3>Control Panel</h3>
+
+<p><a href="controlpanel/allefilms">Alle Films</a></p>
+<p><a href="controlpanel/movies/filmtoevoegen">Film Toevoegen</a></p>
+
+@code {
+
+}

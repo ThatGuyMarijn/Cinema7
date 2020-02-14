@@ -1,0 +1,79 @@
+﻿@page "/controlpanel/movies/filmtoevoegen"
+@using Cinema7.Models;
+@inject Cinema7.Data.CinemaDbContext _CinemaDbContext
+@inject Cinema7.Data.Controllers.FilmController filmController
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+
+@attribute [Authorize(Roles = "Admin, LevelFive")]
+
+<h3>Film Toevoegen</h3>
+
+<EditForm Model="@film">
+    <DataAnnotationsValidator />
+
+    <p>
+        <label for="Titel">Titel: </label>
+        <InputText id="Titel" @bind-Value="film.Titel" />
+    </p>
+    <p>
+        <label for="Beschrijving">Beschrijving: </label>
+        <InputTextArea id="Beschrijving" @bind-Value="film.Beschrijving" />
+    </p>
+    <p>
+        <label for="Duur">Duur: </label>
+        <InputNumber id="Duur" @bind-Value="film.Duur" />
+    </p>
+    <p>
+        <label for="Genre">Genre: </label>
+        <InputText id="Genre" @bind-Value="film.Genre" />
+    </p>
+    <p>
+        <label for="Leeftijd">Voor welke leeftijd?</label>
+        <br />
+        <InputText id="Leeftijd" @bind-Value="film.Leeftijd" />
+    </p>
+    <p>
+        <label for="Prijs">Prijs: </label>
+        <InputNumber id="Prijs" @bind-Value="film.Prijs" />
+    </p>
+    <p>
+        <label for="Type">Type</label>
+        <br />
+        <InputSelect id="Type" @bind-Value="film.Type">
+            <option value="Normaal">Normaal</option>
+            <option value="3D">3D</option>
+            <option value="IMAX">IMAX</option>
+            <option value="IMAX 3D">IMAX 3D</option>
+        </InputSelect>
+    </p>
+    <p>
+        <label for="Status">Status</label>
+        <br />
+        <InputSelect id="Status" @bind-Value="film.Status">
+            <option value="InBios">In Bioscoop</option>
+            <option value="Verwacht">Verwacht</option>
+        </InputSelect>
+    </p>
+    <button type="submit" @onclick="OnSubmit">Submit</button>
+</EditForm>
+
+@code {
+    private Films film { get; set; } = new Films();
+
+    private void OnSubmit()
+    {
+        Films newFilm = new Films();
+        newFilm.Id = Guid.NewGuid();
+        newFilm.Titel = film.Titel;
+        newFilm.Beschrijving = film.Beschrijving;
+        newFilm.Duur = film.Duur;
+        newFilm.Genre = film.Genre;
+        newFilm.Leeftijd = film.Leeftijd;
+        newFilm.Prijs = film.Prijs;
+        newFilm.Type = film.Type;
+        newFilm.Status = film.Status;
+
+        var result = filmController.AddMovie(newFilm);
+        navigationManager.NavigateTo("controlpanel");
+    }
+}

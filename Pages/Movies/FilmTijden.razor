@@ -1,0 +1,43 @@
+﻿@page "/movies/filmtijden/{Id:guid}"
+@using Cinema7.Data.Models;
+@using Cinema7.Models;
+@inject Cinema7.Data.Controllers.VertoningController vertoningController
+@inject Cinema7.Data.CinemaDbContext _CinemaDbContext
+
+@attribute [Authorize]
+@* TODO: NotAuthorized redirects to Identity/Manage/Login *@
+
+<Cinema7.Components.Details FilmId="@Id" />
+
+<h3>Film Tijden</h3>
+
+<table class="table">
+    <tr>
+        <th>Zaal Nummer</th>
+        <th>Datum</th>
+        <th>Tijdstip</th>
+    </tr>
+    @foreach (var vert in vertoningen)
+    {
+        <tr>
+            <td>@vert.ZaalNr</td>
+            <td>@vert.Datum</td>
+            <td><a href="movies/filmtijden/reserveren/@film.Id/@vert.Id/@vert.ZaalNr/@vert.Datum.ToString("yyyy-MM-dd")/@vert.Datum.ToString("HH:mm:ss")">Reserveer</a></td>
+        </tr>
+    }
+</table>
+
+@code {
+    [Parameter]
+    public Guid Id { get; set; }
+
+    Films film = null;
+    List<FilmVertoningen> vertoningen = null;
+
+    protected override void OnInitialized()
+    {
+        film = _CinemaDbContext.Films.Single(film => film.Id == Id);
+        // pak alle 'vertoningen' en sorteer dit en zet het in een lijst
+        vertoningen = _CinemaDbContext.FilmVertoningen.Where(vert => vert.FilmId == Id).OrderBy(vert => vert.Datum).ToList();
+    }
+}

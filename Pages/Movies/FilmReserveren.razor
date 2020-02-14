@@ -1,0 +1,14 @@
+﻿@page "/movies/filmtijden/reserveren/{FilmId:guid}/{VertId:guid}/{ZaalNr:int}/{Datum:datetime}/{Tijd:datetime}"
+@using Cinema7.Models;
+@using Cinema7.Data.Models;
+@inject Cinema7.Data.CinemaDbContext _CinemaDbContext
+@inject Cinema7.Data.Controllers.FilmController filmController
+
+@attribute [Authorize]
+
+<h3>Reserveren</h3>
+
+<Cinema7.Components.Details FilmId="@FilmId" VertId="@VertId" ZaalNr="@ZaalNr" Datum="@Datum" Tijd="@Tijd"/>
+
+<hr />
+

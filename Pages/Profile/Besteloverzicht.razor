@@ -1,0 +1,18 @@
+﻿@page "/profile/besteloverzicht/{VertId:guid}/{FilmId:guid}/{ZaalNr:int}/{AantalTickets:int}"
+
+@attribute [Authorize]
+
+<h3>Besteloverzicht</h3>
+
+<form>
+    <p>
+        Reservatie voor de film @film.Titel
+        <br />
+        De film begint op @vertoning.Datum
+        in Zaal @ZaalNr
+        <br />
+        Je wilt <input type="number" @bind-value="@AantalTickets" /> tickets (Je mag maximaal 10 tickets bestellen).
+    </p>
+    <br /> 
+    <input type="submit" value="Bestellen" @onclick="OnSubmit"/>
+</form>

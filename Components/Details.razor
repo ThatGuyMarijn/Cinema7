@@ -1,0 +1,31 @@
+﻿@inject Cinema7.Data.CinemaDbContext _CinemaDbContext
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+
+<h2>Film: @film.Titel</h2>
+<p>Beschrijving: @film.Beschrijving</p>
+<p>Tijd: @film.Duur minuten</p>
+<p>Genre: @film.Genre</p>
+<p>Leeftijd: @film.Leeftijd jaar en ouder</p>
+<p>Prijs: €@film.Prijs</p>
+<hr />
+@if (ZaalNr != 0)
+{
+    <p>Zaalnummer: @ZaalNr</p>
+    <p>Datum/Tijd: @Datum.ToShortDateString() @Tijd.ToShortTimeString()</p>
+
+    <p>
+        Hoeveel kaarten wil je bestellen?
+        <select @bind="tickets">
+            @for (var i = 1; i <= 10; i++)
+            {
+                <option value="@i">@i</option>
+            }
+        </select>
+    </p>
+
+    <button class="btn btn-primary" @onclick="Order">Reserveren</button>
+}
+
+@code{
+    private int tickets = 1;
+}

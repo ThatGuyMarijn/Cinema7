@@ -1,0 +1,30 @@
+﻿@page "/profile/besteloverzicht/mijnbestellingen"
+@attribute [Authorize]
+
+<h3>Mijn Bestellingen</h3>
+@if (!reserveringen.Any())
+{
+    <p>Je hebt geen reserveringen.</p>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>Titel</th>
+            <th>Aantal Tickets</th>
+            <th>Zaal Nummer</th>
+            <th>Datum</th>
+            <th>Film Details</th>
+        </tr>
+        @foreach (var record in reserveringen)
+        {
+            <tr>
+                <td>@record.Titel</td>
+                <td>@record.AantalTickets</td>
+                <td>@record.ZaalNr</td>
+                <td>@record.Datum</td>
+                <td><a href="movies/filmdetails/@record.Id">Details</a></td>
+            </tr>
+        }
+    </table>
+}

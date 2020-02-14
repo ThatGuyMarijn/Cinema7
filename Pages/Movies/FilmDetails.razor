@@ -1,0 +1,10 @@
+﻿@page "/movies/filmdetails/{Id:guid}"
+@inject Cinema7.Data.CinemaDbContext _CinemaDbContext
+
+<Cinema7.Components.Details FilmId="@Id" />
+
+@code {
+    // gebruikt filmid
+    [Parameter]
+    public Guid Id { get; set; }
+}

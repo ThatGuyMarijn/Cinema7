@@ -1,0 +1,100 @@
+﻿@page "/controlpanel/movies/filmwijzigen/{Id:guid}"
+@using Cinema7.Models;
+@inject Cinema7.Data.Controllers.FilmController filmController
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+
+@inject Cinema7.Data.CinemaDbContext _CinemaDbContext
+
+
+@attribute [Authorize(Roles = "Admin, LevelFive")]
+
+<h3>Film Wijzigen - @film.Titel</h3>
+
+<EditForm Model="@film">
+    <DataAnnotationsValidator />
+
+    <p>
+        <label for="Titel">Titel: </label>
+        <InputText id="Titel" @bind-Value="film.Titel" />
+    </p>
+    <p>
+        <label for="Beschrijving">Beschrijving: </label>
+        <InputTextArea id="Beschrijving" @bind-Value="film.Beschrijving" />
+    </p>
+    <p>
+        <label for="Duur">Duur: </label>
+        <InputNumber id="Duur" @bind-Value="film.Duur" />
+    </p>
+    <p>
+        <label for="Genre">Genre: </label>
+        <InputText id="Genre" @bind-Value="film.Genre" />
+    </p>
+    <p>
+        <label for="Leeftijd">Voor welke leeftijd?</label>
+        <br />
+        <InputText id="Leeftijd" @bind-Value="film.Leeftijd" />
+    </p>
+    <p>
+        <label for="Prijs">Prijs: </label>
+        <InputNumber id="Prijs" @bind-Value="film.Prijs" />
+    </p>
+    <p>
+        <label for="Type">Type</label>
+        <br />
+        <InputSelect id="Type" @bind-Value="film.Type">
+            <option value="Normaal">Normaal</option>
+            <option value="3D">3D</option>
+            <option value="IMAX">IMAX</option>
+            <option value="IMAX 3D">IMAX 3D</option>
+        </InputSelect>
+    </p>
+    <p>
+        <label for="Status">Status</label>
+        <br />
+        <InputSelect id="Status" @bind-Value="film.Status">
+            <option value="InBios">In Bioscoop</option>
+            <option value="Verwacht">Verwacht</option>
+        </InputSelect>
+    </p>
+    <button class="btn btn-primary" type="submit" @onclick="OnSubmit">Submit</button>
+</EditForm>
+
+<hr />
+<button class="btn btn-secondary" @onclick="@(() => DeleteMovie(film.Id))">Verwijder @film.Titel</button>
+
+
+@code {
+    [Parameter]
+    public Guid Id { get; set; }
+
+    Films film = null;
+
+    protected override void OnInitialized()
+    {
+        film = _CinemaDbContext.Films.First(film => film.Id == Id);
+    }
+
+    private void OnSubmit()
+    {
+        Films editFilm = new Films();
+
+        editFilm.Id = film.Id;
+        editFilm.Titel = film.Titel;
+        editFilm.Beschrijving = film.Beschrijving;
+        editFilm.Duur = film.Duur;
+        editFilm.Genre = film.Genre;
+        editFilm.Leeftijd = film.Leeftijd;
+        editFilm.Prijs = film.Prijs;
+        editFilm.Type = film.Type;
+        editFilm.Status = film.Status;
+
+        filmController.EditMovie(editFilm);
+        navigationManager.NavigateTo("controlpanel/allefilms");
+    }
+
+    private void DeleteMovie(Guid Id)
+    {
+        var result = filmController.DeleteFilm(Id);
+        navigationManager.NavigateTo("controlpanel/allefilms");
+    }
+}

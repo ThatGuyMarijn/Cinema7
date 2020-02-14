@@ -1,0 +1,13 @@
+﻿@page "/profile/besteloverzicht/bestelling/{newReserveringsId:guid}"
+@attribute [Authorize]
+
+<h3>Bestelling is geplaatst.</h3>
+<p>Uw bestelling is succesvol bij ons ontvangen! Re bestelling is bij ons bekend onder reserveringsnummer: @newReserveringsId </p>
+<p>Wij bedanken u voor uw vertrouwen in ons en wensen u al vast veel plezier met de voorstelling.</p>
+
+<a href="/">Terug naar de Homepage</a>
+
+@code{
+    [Parameter]
+    public Guid newReserveringsId { get; set; }
+}

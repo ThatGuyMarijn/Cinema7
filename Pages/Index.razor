@@ -1,0 +1,10 @@
+﻿@page "/"
+@using Cinema7.Models;
+@inject Cinema7.Data.Controllers.UserController userController
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<IdentityUser> UserManager;
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
