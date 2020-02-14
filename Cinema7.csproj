@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-Cinema7-F02CFCC8-E9BD-454B-A110-CA6657543AF8</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20200120120056_CreatedRoles.cs" />
+    <Compile Remove="Data\Migrations\20200120120056_CreatedRoles.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200120123635_Roles.cs" />
+    <Compile Remove="Data\Migrations\20200120123635_Roles.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200120132827_Roles.cs" />
+    <Compile Remove="Data\Migrations\20200120132827_Roles.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200120132909_Roles.cs" />
+    <Compile Remove="Data\Migrations\20200120132909_Roles.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200207114552_testing.cs" />
+    <Compile Remove="Data\Migrations\20200207114552_testing.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
+    <PackageReference Include="System.Linq" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>
